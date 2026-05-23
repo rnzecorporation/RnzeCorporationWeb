@@ -1,47 +1,50 @@
-import React from "react";
-
 interface LogoProps {
   size?: "sm" | "md" | "lg";
+  variant?: "light" | "dark";
 }
 
-const Logo: React.FC<LogoProps> = ({ size = "md" }) => {
+const Logo = ({ size = "md", variant = "dark" }: LogoProps) => {
+  const color = variant === "light" ? "#002A54" : "#FFFFFF";
+
   const sizeMap = {
-    sm: "h-6 w-6",
-    md: "h-8 w-8",
-    lg: "h-12 w-12",
+    sm: { icon: 24, text: "text-base" },
+    md: { icon: 32, text: "text-xl" },
+    lg: { icon: 44, text: "text-3xl" },
   };
 
-  const textSizeMap = {
-    sm: "text-lg",
-    md: "text-xl",
-    lg: "text-3xl",
-  };
+  const { icon, text } = sizeMap[size];
 
   return (
     <div className="flex items-center gap-3">
       <svg
-        className={`${sizeMap[size]}`}
+        width={icon}
+        height={icon}
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle cx="50" cy="50" r="48" stroke="#FFFFFF" strokeWidth="4" />
+        <circle cx="50" cy="50" r="46" stroke={color} strokeWidth="5" />
         <path
-          d="M 30 70 C 40 50, 45 40, 50 30 C 55 40, 60 50, 70 70"
-          stroke="#FFFFFF"
+          d="M 28 68 C 38 50 44 38 50 28 C 56 38 62 50 72 68"
+          stroke={color}
           strokeWidth="6"
           strokeLinecap="round"
           strokeLinejoin="round"
+          fill="none"
         />
         <path
-          d="M 20 60 C 35 45, 45 40, 50 35 C 55 40, 65 45, 80 60"
-          stroke="#FFFFFF"
+          d="M 18 58 C 32 44 43 38 50 34 C 57 38 68 44 82 58"
+          stroke={color}
           strokeWidth="4"
           strokeLinecap="round"
           strokeLinejoin="round"
+          fill="none"
         />
       </svg>
-      <span className={`font-space-grotesk font-bold text-white tracking-tight ${textSizeMap[size]}`}>
+      <span
+        className={`font-space-grotesk font-bold tracking-tight ${text}`}
+        style={{ color }}
+      >
         RnzeCorporation
       </span>
     </div>

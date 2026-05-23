@@ -1,5 +1,14 @@
-import React from "react";
+import { Download, Star } from "lucide-react";
 import * as LucideIcons from "lucide-react";
+
+const solidColors: Record<number, string> = {
+  1: "#002A54",
+  2: "#003366",
+  3: "#004080",
+  4: "#001A38",
+  5: "#002A54",
+  6: "#003366",
+};
 
 interface AppCardProps {
   app: {
@@ -11,58 +20,44 @@ interface AppCardProps {
     rating: number;
     downloads: string;
     description: string;
-    gradient: string;
     iconName: string;
   };
 }
 
-const AppCard: React.FC<AppCardProps> = ({ app }) => {
-  // Dynamically get the icon component from lucide-react
-  // Type assertion needed because we're accessing by string key
-  const IconComponent = (LucideIcons as any)[app.iconName] || LucideIcons.Box;
+const AppCard = ({ app }: AppCardProps) => {
+  const IconComponent = (LucideIcons as Record<string, React.ComponentType<{ size?: number; color?: string; strokeWidth?: number }>>)[app.iconName] || LucideIcons.Box;
+  const bg = solidColors[app.id] ?? "#002A54";
 
   return (
-    <div 
-      className="group relative h-[420px] rounded-2xl overflow-hidden glass border border-white/10 transition-all duration-300 ease-in-out hover:scale-[1.03] hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(99,179,237,0.3)]"
+    <div
+      className="group relative rounded-lg overflow-hidden cursor-pointer transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-xl"
+      style={{ backgroundColor: bg, aspectRatio: "2/3" }}
       data-testid={`app-card-${app.id}`}
     >
-      {/* Top half: Gradient Background + Icon */}
-      <div className={`h-[55%] w-full bg-gradient-to-br ${app.gradient} relative overflow-hidden flex items-center justify-center transition-all duration-500 ease-in-out group-hover:h-[45%]`}>
-        <div className="absolute inset-0 bg-black/10 mix-blend-overlay transition-opacity duration-300 group-hover:opacity-0"></div>
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+CgkJPGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPgoJPC9zdmc+')] opacity-30"></div>
-        <IconComponent className="w-16 h-16 text-white drop-shadow-xl transform transition-transform duration-500 group-hover:scale-110" />
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-4">
+        <IconComponent size={52} color="#FFFFFF" strokeWidth={1.2} />
+        <span className="text-white/30 text-[10px] uppercase tracking-widest font-medium">
+          {app.category}
+        </span>
       </div>
 
-      {/* Bottom half: Content */}
-      <div className="absolute bottom-0 w-full h-[45%] bg-[#0a1122]/95 backdrop-blur-xl p-6 transition-all duration-500 ease-in-out group-hover:h-[55%] flex flex-col justify-between">
-        <div>
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="text-xl font-bold text-white line-clamp-1">{app.name}</h3>
-            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/10 text-slate-300">
-              {app.category}
-            </span>
-          </div>
-          
-          <div className="text-xs text-sky-400 font-medium mb-3">v{app.version}</div>
-          
-          <p className="text-sm text-slate-400 line-clamp-2 leading-relaxed transition-all duration-300 group-hover:text-slate-300">
-            {app.description}
-          </p>
-        </div>
+      <div className="absolute bottom-0 left-0 right-0 p-4" style={{ backgroundColor: "rgba(0,0,0,0.35)" }}>
+        <p className="text-white font-bold text-sm uppercase tracking-wide leading-tight mb-0.5">
+          {app.name}
+        </p>
+        <p className="text-white/50 text-xs">v{app.version}</p>
 
-        {/* Hidden reveal section on hover */}
-        <div className="flex items-center justify-between opacity-0 translate-y-4 transition-all duration-300 ease-in-out delay-100 group-hover:opacity-100 group-hover:translate-y-0 mt-4 border-t border-white/5 pt-4">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1">
-              <LucideIcons.Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-              <span className="text-xs font-bold text-white">{app.rating.toFixed(1)}</span>
-            </div>
-            <div className="w-1 h-1 rounded-full bg-slate-600"></div>
-            <span className="text-xs text-slate-400">{app.size}</span>
+        <div className="flex items-center justify-between mt-3 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out translate-y-2 group-hover:translate-y-0">
+          <div className="flex items-center gap-1">
+            <Star size={11} fill="#FFD700" color="#FFD700" />
+            <span className="text-white/70 text-xs">{app.rating.toFixed(1)}</span>
+            <span className="text-white/30 text-xs ml-1">{app.size}</span>
           </div>
-          
-          <button className="flex items-center justify-center w-8 h-8 rounded-full bg-white text-black hover:bg-sky-100 transition-colors">
-            <LucideIcons.Download className="w-4 h-4" />
+          <button
+            data-testid={`app-download-${app.id}`}
+            className="w-7 h-7 rounded-full border border-white/40 flex items-center justify-center hover:bg-white hover:border-white transition-all duration-300 ease-in-out group/btn"
+          >
+            <Download size={13} className="text-white group-hover/btn:text-[#002A54] transition-colors duration-300" />
           </button>
         </div>
       </div>

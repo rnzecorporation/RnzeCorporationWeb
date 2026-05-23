@@ -4,7 +4,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
-import { useEffect } from "react";
 
 const queryClient = new QueryClient();
 
@@ -18,11 +17,6 @@ function Router() {
 }
 
 function App() {
-  useEffect(() => {
-    document.documentElement.classList.add('dark');
-    document.body.style.backgroundColor = '#050a14';
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>

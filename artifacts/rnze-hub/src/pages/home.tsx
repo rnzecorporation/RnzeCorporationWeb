@@ -1,18 +1,19 @@
-import React from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AppGrid from "@/components/AppGrid";
+import AboutSection from "@/components/AboutSection";
 import ChangelogSection from "@/components/ChangelogSection";
 import SecuritySection from "@/components/SecuritySection";
 import Footer from "@/components/Footer";
 
-const Home: React.FC = () => {
+const Home = () => {
   return (
-    <div className="relative min-h-screen bg-[#050a14] text-white">
+    <div className="min-h-screen bg-white text-[#333D4B]">
       <Navbar />
       <main>
         <HeroSection />
         <AppGrid />
+        <AboutSection />
         <ChangelogSection />
         <SecuritySection />
       </main>
