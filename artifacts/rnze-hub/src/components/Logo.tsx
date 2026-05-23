@@ -4,7 +4,7 @@ interface LogoProps {
 }
 
 const Logo = ({ size = "md", variant = "dark" }: LogoProps) => {
-  const color = variant === "light" ? "#002A54" : "#FFFFFF";
+  const textColor = variant === "light" ? "#002A54" : "#FFFFFF";
 
   const sizeMap = {
     sm: { icon: 26, text: "text-base" },
@@ -16,48 +16,21 @@ const Logo = ({ size = "md", variant = "dark" }: LogoProps) => {
 
   return (
     <div className="flex items-center gap-2.5">
-      <svg
+      <img
+        src="/rnze-logo.png"
+        alt="RnzeCorporation logo"
         width={icon}
         height={icon}
-        viewBox="0 0 100 100"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {/* Outer circle */}
-        <circle cx="50" cy="50" r="46" stroke={color} strokeWidth="4.5" />
-
-        {/* Wave layer 1 - largest outer wave */}
-        <path
-          d="M 18 62 Q 28 48 38 55 Q 48 62 58 48 Q 68 34 82 42"
-          stroke={color}
-          strokeWidth="4"
-          strokeLinecap="round"
-          fill="none"
-        />
-
-        {/* Wave layer 2 - middle wave */}
-        <path
-          d="M 22 72 Q 32 58 42 65 Q 52 72 62 58 Q 72 44 82 54"
-          stroke={color}
-          strokeWidth="3.5"
-          strokeLinecap="round"
-          fill="none"
-          opacity="0.75"
-        />
-
-        {/* Wave layer 3 - smallest top wave */}
-        <path
-          d="M 16 52 Q 26 38 36 45 Q 46 52 56 38 Q 66 24 80 32"
-          stroke={color}
-          strokeWidth="3"
-          strokeLinecap="round"
-          fill="none"
-          opacity="0.5"
-        />
-      </svg>
+        style={{
+          width: icon,
+          height: icon,
+          objectFit: "contain",
+          filter: variant === "dark" ? "brightness(0) invert(1)" : "none",
+        }}
+      />
       <span
         className={`font-space-grotesk font-bold tracking-tight ${text}`}
-        style={{ color }}
+        style={{ color: textColor }}
       >
         RnzeCorporation
       </span>
