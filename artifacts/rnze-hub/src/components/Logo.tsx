@@ -4,12 +4,12 @@ interface LogoProps {
 }
 
 const Logo = ({ size = "md", variant = "dark" }: LogoProps) => {
-  const textColor = variant === "light" ? "#002A54" : "#FFFFFF";
+  const color = variant === "light" ? "#002A54" : "#FFFFFF";
 
   const sizeMap = {
-    sm: { icon: 26, text: "text-base" },
-    md: { icon: 34, text: "text-xl" },
-    lg: { icon: 46, text: "text-3xl" },
+    sm: { icon: 30, text: "text-[15px]" },
+    md: { icon: 40, text: "text-[19px]" },
+    lg: { icon: 52, text: "text-[24px]" },
   };
 
   const { icon, text } = sizeMap[size];
@@ -18,21 +18,21 @@ const Logo = ({ size = "md", variant = "dark" }: LogoProps) => {
     <div className="flex items-center gap-2.5">
       <img
         src="/rnze-logo.png"
-        alt="RnzeCorporation logo"
-        width={icon}
-        height={icon}
+        alt="RnzeCorporation icon"
         style={{
           width: icon,
           height: icon,
           objectFit: "contain",
+          flexShrink: 0,
           filter: variant === "dark" ? "brightness(0) invert(1)" : "none",
         }}
       />
       <span
-        className={`font-space-grotesk font-bold tracking-tight ${text}`}
-        style={{ color: textColor }}
+        className={`${text} leading-none tracking-tight`}
+        style={{ color, fontFamily: "'Inter', sans-serif" }}
       >
-        RnzeCorporation
+        <span style={{ fontWeight: 300 }}>Rnze</span>
+        <span style={{ fontWeight: 500 }}>Corporation</span>
       </span>
     </div>
   );
