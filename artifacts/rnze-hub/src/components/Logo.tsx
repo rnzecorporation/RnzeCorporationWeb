@@ -8,8 +8,8 @@ const Logo = ({ size = "md", variant = "dark" }: LogoProps) => {
 
   const sizeMap = {
     sm: { icon: 30, text: "text-[15px]" },
-    md: { icon: 40, text: "text-[19px]" },
-    lg: { icon: 52, text: "text-[24px]" },
+    md: { icon: 52, text: "text-[19px]" },
+    lg: { icon: 64, text: "text-[24px]" },
   };
 
   const { icon, text } = sizeMap[size];
