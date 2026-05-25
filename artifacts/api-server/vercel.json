@@ -1,5 +1,7 @@
 {
-  "version": 2,
+  "compilerOptions": {
+    "target": "es2022"
+  },
   "builds": [
     {
       "src": "src/index.ts",
